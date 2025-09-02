@@ -21,7 +21,6 @@ function App() {
    if (title!==""){
     const copy =[...movies,{title:title, genre:"horror"}];
     setMovies(copy);
-    setFilteredMovies(copy)
     setTitle("")
    }
  }
@@ -40,7 +39,7 @@ function App() {
   setFilteredMovies(updatedMovies)
 
 
- },[genre,search])
+ },[genre,search,movies])
 
   return (
     <>
