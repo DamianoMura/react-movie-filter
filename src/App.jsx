@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState,useEffect,} from 'react'
 
 
 function App() {
@@ -14,6 +14,18 @@ function App() {
  const [genre,setGenre] = useState('');
  const [search,setSearch]=useState('');
  const [filteredMovies,setFilteredMovies]=useState(movies);
+ const [title,setTitle]=useState('')
+
+ const handleSubmit = (e)=>{
+    e.preventDefault();
+   if (title!==""){
+    const copy =[...movies,{title:title, genre:"horror"}];
+    setMovies(copy);
+    setFilteredMovies(copy)
+    setTitle("")
+   }
+ }
+
 
  useEffect(()=>{
   let updatedMovies=movies;
@@ -71,6 +83,16 @@ function App() {
                 )
               })}
             </ul>
+           </div>
+           <div className="col-12">
+            <div className="flex justify-content-between">
+              <input type="text"
+                     value={title}
+                     onChange={(e)=> {setTitle(e.target.value)}} />
+              <button className="btn btn-success"
+                onClick={handleSubmit}>
+                  aggiungi</button>
+            </div>
            </div>
           </div>
         </div>
