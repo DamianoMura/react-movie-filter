@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react'
 
 
 function App() {
- const movies =  [
+ const initialMovies =  [
    { title: 'Inception', genre: 'Fantascienza' },
    { title: 'Il Padrino', genre: 'Thriller' },
    { title: 'Titanic', genre: 'Romantico' },
@@ -10,9 +10,18 @@ function App() {
    { title: 'Interstellar', genre: 'Fantascienza' },
    { title: 'Pulp Fiction', genre: 'Thriller' },
  ]
-
+ const [movies,setMovies]=useState(initialMovies);
  const [genre,setGenre] = useState('');
- 
+
+ useEffect(()=>{
+  if(genre!==''){
+const selectedMovies= initialMovies.filter((movie) => movie.genre===genre)
+setMovies(selectedMovies)
+  }
+  else{
+    setMovies(initialMovies)
+  }
+ },[genre])
 
   return (
     <>
@@ -24,6 +33,7 @@ function App() {
           <div className="row">
             <div className="col-12">
               <select 
+              value={genre}
                 name="movies-list" 
                 id="" 
                 className="form-select" 
