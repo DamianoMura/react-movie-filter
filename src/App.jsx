@@ -13,27 +13,32 @@ function App() {
  const [movies,setMovies]=useState(initialMovies);
  const [genre,setGenre] = useState('');
  const [search,setSearch]=useState('');
+ const [filteredMovies,setFilteredMovies]=useState(movies);
 
  useEffect(()=>{
-  
+  let updatedMovies=movies;
   if(genre){
-    const selectedList= initialMovies.filter((movie) => movie.genre.toLowerCase()===genre.toLowerCase())
-    setMovies(selectedList)
+    updatedMovies=updatedMovies.filter((movie) => movie.genre.toLowerCase()===genre.toLowerCase())
   }
-  else{
-    setMovies(initialMovies)
+  
+  if(search){
+    updatedMovies=updatedMovies.filter((movie) => movie.title.toLowerCase().includes(search.toLowerCase()))
   }
- },[genre])
+  
+  setFilteredMovies(updatedMovies)
+
+
+ },[genre,search])
 
   return (
     <>
-      <header>
+      <header className="text-center">
         <h1>movie list</h1>
       </header>
       <main>
         <div className="container my-5">
           <div className="row">
-            <div className="col-12">
+            <div className="col-6">
               <select 
               value={genre}
                 name="movies-list" 
@@ -49,9 +54,18 @@ function App() {
                 
               </select>
             </div>
+            <div className="col-6">
+              
+                <input type="text" 
+                  className="w-100" 
+                  value={search}
+                  onChange={(e)=> {setSearch(e.target.value)}}/>
+                
+              
+            </div>
            <div className="col-12">
             <ul className="list-group list-unstyled">
-              {movies.map((movie , index) => {
+              {filteredMovies.map((movie , index) => {
                 return(
                   <li key={index} className="list-group-item"><span>{movie.title}</span></li>
                 )
