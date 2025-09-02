@@ -12,11 +12,13 @@ function App() {
  ]
  const [movies,setMovies]=useState(initialMovies);
  const [genre,setGenre] = useState('');
+ const [search,setSearch]=useState('');
 
  useEffect(()=>{
-  if(genre!==''){
-    const selectedMovies= initialMovies.filter((movie) => movie.genre===genre)
-    setMovies(selectedMovies)
+  
+  if(genre){
+    const selectedList= initialMovies.filter((movie) => movie.genre.toLowerCase()===genre.toLowerCase())
+    setMovies(selectedList)
   }
   else{
     setMovies(initialMovies)
@@ -51,7 +53,7 @@ function App() {
             <ul className="list-group list-unstyled">
               {movies.map((movie , index) => {
                 return(
-                  <li key={index} className="list-group-item"><span>titolo:{movie.title}</span></li>
+                  <li key={index} className="list-group-item"><span>{movie.title}</span></li>
                 )
               })}
             </ul>
