@@ -11,6 +11,7 @@ function App() {
    { title: 'Pulp Fiction', genre: 'Thriller' },
  ]
 
+ const [genre,setGenre] = useState('');
  
 
   return (
@@ -19,16 +20,28 @@ function App() {
         <h1>movie list</h1>
       </header>
       <main>
-        <div className="container">
+        <div className="container my-5">
           <div className="row">
             <div className="col-12">
-             
+              <select 
+                name="movies-list" 
+                id="" 
+                className="form-select" 
+                onChange={(e)=>setGenre(e.target.value)}>
+
+                  <option value="">select genre</option>
+                  <option value="Fantascienza">Fantascienza</option>
+                  <option value="Thriller">Thriller</option>
+                  <option value="Romantico">Romantico</option>
+                  <option value="Azione">Azione</option>
+                
+              </select>
             </div>
            <div className="col-12">
             <ul className="list-group list-unstyled">
-              {movies.map(movie=>{
+              {movies.map((movie , index) => {
                 return(
-                  <li className="list-group-item"><span>titolo:{movie.title}</span> <hr /><span> genere: {movie.genre}</span></li>
+                  <li key={index} className="list-group-item"><span>titolo:{movie.title}</span></li>
                 )
               })}
             </ul>
